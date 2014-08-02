@@ -1,3 +1,5 @@
+var originTemplate = new Object();
+
 var KEYWORDS =
 	//
 	'break,case,catch,continue,debugger,default,delete,do,else,end,false' 
@@ -49,14 +51,14 @@ var addStr = "htmlStr += '?';";
 
 var thisTemplate = {};
 
-var compile = function(templateName,templateStr) {
+originTemplate.compile = function(templateName,templateStr) {
 	templateStr = templateStr.replace(/\s+/g, " ").replace(/\n+/g, " ").replace(/'/g, '\\\'').replace(/"/g, '\\\"');
 
 	var vars = getVariables(templateStr);
 
 	var valueRe = valueReg.exec(templateStr);
 	while (valueRe) {
-		templateStr = templateStr.replace(valueRe[0], "'+" + valueRe[1] + "+'");
+		templateStr = templateStr.replace(valueRe[0], "'+(" + valueRe[1] + ")+'");
 		var valueRe = valueReg.exec(templateStr);
 	}
 
@@ -98,10 +100,10 @@ var compile = function(templateName,templateStr) {
 	return thisTemplate[templateName] =  new Function("args", funcStr);
 };
 
-var renderFromjs = function(templateName,args){
+originTemplate.renderFromjs = function(templateName,args){
 	return templateDict[templateName](args);
 };
 
-var render = function(templateName,args){
+originTemplate.render = function(templateName,args){
 	return thisTemplate[templateName](args);
 };
