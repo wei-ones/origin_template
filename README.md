@@ -24,13 +24,13 @@
 ```
 
 ###渲染
-	*`originTemplate.compile("template.name",templateStr)`,
-	*`originTemplate.render("template.name",{title:"originTemplate",list:[2,3,4,5]})`,
+	*originTemplate.compile("template.name",templateStr),
+	*originTemplate.render("template.name",{title:"originTemplate",list:[2,3,4,5]}),
 	返回:
-	```
+	`
 	<h1>originTemplate</h1><ul><li>索引 3</li><li>索引 4</li><li>索引 5</li><li>索引 6</li></ul> 
 
-	```
+	`
 
 ##	API说明
 
