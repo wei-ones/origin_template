@@ -49,5 +49,5 @@
 ###	originTemplate.js
 	需被客户端引用
 ###	dump.js	
-	*node dump.js \<dirPath\> \<outPath\>
+	*node dump.js <dirPath> <outPath>
 	对指定文件夹中所有模板进行编译，存储于template.js中
