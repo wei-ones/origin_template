@@ -12,7 +12,7 @@
 *	使用`<%...%>`标记逻辑控制
 *	使用`<%=...%>`标记输出语句
 
-###templateStr
+###	templateStr
 ```
 <h1><%=title%></h1>
 <ul>
@@ -23,7 +23,7 @@
 
 ```
 
-###渲染
+###	渲染
 	*originTemplate.compile("template.name",templateStr),
 	*originTemplate.render("template.name",{title:"originTemplate",list:[2,3,4,5]}),
 	返回:
