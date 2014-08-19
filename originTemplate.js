@@ -52,29 +52,29 @@ var addStr = "htmlStr += '?';";
 var thisTemplate = {};
 
 originTemplate.compile = function(templateName,templateStr) {
-	templateStr = templateStr.replace(/\s+/g, " ").replace(/\n+/g, " ").replace(/'/g, '\\\'').replace(/"/g, '\\\"');
+	templateStr = templateStr.replace(/\s+/g, " ").replace(/\n+/g, " ");
 
 	var vars = getVariables(templateStr);
-
-	var valueRe = valueReg.exec(templateStr);
-	while (valueRe) {
-		templateStr = templateStr.replace(valueRe[0], "'+(" + valueRe[1] + ")+'");
-		var valueRe = valueReg.exec(templateStr);
-	}
 
 	var funcStr = "'use strict';";
 	funcStr += "var htmlStr=''";
 	for (each in vars) {
 		funcStr += "," + vars[each] + "=" + "args." + vars[each];
-	}
+	};
 	funcStr += ";";
+
+	var valueRe = valueReg.exec(templateStr);
+	while (valueRe) {
+		templateStr = templateStr.replace(valueRe[0], "<% htmlStr += " + valueRe[1] + "; %>");
+		var valueRe = valueReg.exec(templateStr);
+	}
 
 	var startRe = cstartReg.exec(templateStr);
 	var endRe = cendReg.exec(templateStr);
 	var lastPos = 0;
 	while (startRe && endRe) {
 		tempStr = templateStr.slice(lastPos, startRe.index);
-		funcStr += tempStr ? addStr.replace(/\?/, tempStr) : "";
+		funcStr += tempStr ? addStr.replace(/\?/, tempStr.replace(/'/g, '\\\'').replace(/"/g, '\\\"')) : "";
 		funcStr += templateStr.slice(startRe.index + 2, endRe.index);
 		lastPos = endRe.index + 2;
 		startRe = cstartReg.exec(templateStr);
