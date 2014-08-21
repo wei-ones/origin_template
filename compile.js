@@ -96,46 +96,12 @@ var compile = function(templateStr) {
 	return funcStr;
 };
 
-var fs = require("fs");
-var path = require("path");
-
-var argvs = process.argv.splice(2);
-
-var dirPath = argvs[0] ? argvs[0] : path.dirname(process.argv.splice(1));
-var outPath = argvs[1] ? argvs[1] : dirPath;
-
-var traverseDir = function(rootPath, dirPath, filesDict) {
-	var filesList = [];
-	var thisPath = path.join(rootPath, dirPath);
-	var files = fs.readdirSync(thisPath);
-	files.forEach(function(file) {
-		var statObj = fs.statSync(path.join(thisPath, file));
-		if (statObj.isDirectory()) traverseDir(rootPath, path.join(dirPath, file), filesDict);
-		else filesList.push(file);
-	});
-	filesDict[dirPath] = filesList;
+fs = require("fs");
+var compileFile = function(filePath) {
+	return compile(fs.readFileSync(filePath, {
+		encoding: "utf8"
+	}));
 };
 
-var compileDir = function(dirPath) {
-	var funcStr = "var templateDict = {";
-	var filesDict = {};
-	traverseDir(dirPath, "", filesDict);
-	var isFirst = true;
-	for (var each in filesDict) {
-		filesDict[each].forEach(function(file) {
-			var thisPath = path.join(dirPath,each, file);
-			if (path.extname(file) == ".html") {
-				if (!isFirst) funcStr += ",";
-				else isFirst = false;
-				funcStr += "'" + path.join(each, file) + "':function(args){" + compile(fs.readFileSync(thisPath, {
-					encoding: "utf8"
-				})) + "}";
-			}
-		});
-	}
-	funcStr += "}";
-
-	fs.writeFileSync(path.join(outPath,"template.js"), funcStr);
-};
-
-compileDir(dirPath);
+exports.compile = compile;
+exports.compileFile = compileFile;

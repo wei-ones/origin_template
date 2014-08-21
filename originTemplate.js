@@ -82,7 +82,7 @@ originTemplate.compile = function(templateName,templateStr) {
 	}
 
 	tempStr = templateStr.slice(lastPos);
-	funcStr += tempStr ? addStr.replace(/\?/, tempStr) : "";
+	funcStr += tempStr ? addStr.replace(/\?/, tempStr.replace(/'/g, '\\\'').replace(/"/g, '\\\"')) : "";
 	funcStr += "return htmlStr;";
 	funcStr = funcStr.replace(/\s+/, " ");
 
