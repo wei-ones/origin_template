@@ -102,7 +102,7 @@ var path = require("path");
 var argvs = process.argv.splice(2);
 
 var dirPath = argvs[0] ? argvs[0] : path.dirname(process.argv.splice(1));
-var outPath = argvs[1] ? argvs[1] : dirPath;
+var outPath = argvs[1] ? argvs[1] : path.join(dirPath,"template.js");
 
 var traverseDir = function(rootPath, dirPath, filesDict) {
 	var filesList = [];
@@ -135,7 +135,7 @@ var compileDir = function(dirPath) {
 	}
 	funcStr += "}";
 
-	fs.writeFileSync(path.join(outPath,"template.js"), funcStr);
+	fs.writeFileSync(outPath, funcStr);
 };
 
 compileDir(dirPath);
