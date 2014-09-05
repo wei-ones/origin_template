@@ -48,7 +48,7 @@ var valueReg = new RegExp(/<%=\s*(.+?)\s*%>/g);
 var addStr = "htmlStr += '?';";
 
 var compile = function(templateStr) {
-	templateStr = templateStr.replace(/\s+/g, " ").replace(/\n+/g, " ");
+	templateStr = templateStr.replace(commentRe, '').replace(/\s+/g, " ").replace(/\n+/g, " ");
 
 	var vars = getVariables(templateStr);
 

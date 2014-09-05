@@ -52,7 +52,7 @@ var addStr = "htmlStr += '?';";
 var thisTemplate = {};
 
 originTemplate.compile = function(templateName,templateStr) {
-	templateStr = templateStr.replace(/\s+/g, " ").replace(/\n+/g, " ");
+	templateStr = templateStr.replace(commentRe, '').replace(/\s+/g, " ").replace(/\n+/g, " ");
 
 	var vars = getVariables(templateStr);
 
