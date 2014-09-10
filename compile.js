@@ -70,7 +70,7 @@ var compile = function(templateStr) {
 	var lastPos = 0;
 	while (startRe && endRe) {
 		tempStr = templateStr.slice(lastPos, startRe.index);
-		funcStr += tempStr ? addStr.replace(/\?/, tempStr.replace(/'/g, '\\\'').replace(/"/g, '\\\"')) : "";
+		funcStr += tempStr ? addStr.replace(/\?/, tempStr.replace(/\\/g, '\\\\').replace(/'/g, '\\\'').replace(/"/g, '\\\"')) : "";
 		funcStr += templateStr.slice(startRe.index + 2, endRe.index);
 		lastPos = endRe.index + 2;
 		startRe = cstartReg.exec(templateStr);
@@ -78,7 +78,7 @@ var compile = function(templateStr) {
 	}
 
 	tempStr = templateStr.slice(lastPos);
-	funcStr += tempStr ? addStr.replace(/\?/, tempStr.replace(/'/g, '\\\'').replace(/"/g, '\\\"')) : "";
+	funcStr += tempStr ? addStr.replace(/\?/, tempStr.replace(/\\/g, '\\\\').replace(/'/g, '\\\'').replace(/"/g, '\\\"')) : "";
 	funcStr += "return htmlStr;";
 	funcStr = funcStr.replace(/\s+/, " ");
 

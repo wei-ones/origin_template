@@ -1,0 +1,2 @@
+
+'use strict';var htmlStr='',alertType=args.alertType,alertData=args.alertData;htmlStr += ' <div class=\"container-fluid\"> <div class=\"row\"> <div class=\"col-md-12\"> <div class=\"alert alert-'; htmlStr += alertType; htmlStr += ' lead text-center\">'; htmlStr += alertData; htmlStr += '</div> </div> </div> </div> <script> htmlStr += \" asd + \\' + \\' \"; </script>';return htmlStr;
