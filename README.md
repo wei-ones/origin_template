@@ -51,3 +51,6 @@
 ###	dump.js	
 	*node dump.js <dirPath> <outPath>
 	对指定文件夹中所有模板进行编译，存储于outPath(fileName)中
+###	dump_auto.js	
+	*node dump_auto.js <dirPath> <outPath>
+	实时监测文件变动,并对指定文件夹中所有模板进行编译，存储于outPath(fileName)中
