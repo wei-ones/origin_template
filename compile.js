@@ -11,7 +11,9 @@ var KEYWORDS =
 	// 
 	+ ',arguments,let,yield'
 	//
-	+',undefined';
+	+',decodeURI,decodeURIComponent,encodeURI,encodeURIComponent,scape,eval'
+	+',getClass,isFinite,isNaN,parseFloat,parseInt,String,unescape'
+	+',Infinity,java,NaN,Packages,undefined';
 
 var commentRe = /\/\*[\w\W]*?\*\/|\/\/[^\n]*\n|\/\/[^\n]*$/g;
 var elseRe = /[\.\[]\w+\]?|\bvar\s+\w+/g;
