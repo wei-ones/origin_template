@@ -12,7 +12,7 @@ var KEYWORDS =
 	+ ',arguments,let,yield'
 	//
 	+',decodeURI,decodeURIComponent,encodeURI,encodeURIComponent,scape,eval'
-	+',getClass,isFinite,isNaN,parseFloat,parseInt,String,unescape'
+	+',getClass,isFinite,isNaN,parseFloat,parseInt,String,Math,unescape'
 	+',Infinity,java,NaN,Packages,undefined';
 
 
@@ -51,7 +51,7 @@ var valueReg = new RegExp(/<%=\s*(.+?)\s*%>/g);
 var addStr = "htmlStr += '?';";
 
 var compile = function(templateStr) {
-	templateStr = templateStr.replace(commentRe, '').replace(/\s+/g, " ").replace(/\n+/g, " ");
+	templateStr = templateStr.replace(commentRe, '').replace(/>\s+</g,"><").replace(/\r+/g, " ").replace(/\n+/g, " ");
 
 	var vars = getVariables(templateStr);
 
@@ -83,7 +83,6 @@ var compile = function(templateStr) {
 	tempStr = templateStr.slice(lastPos);
 	funcStr += tempStr ? addStr.replace(/\?/, tempStr.replace(/\\/g, '\\\\').replace(/'/g, '\\\'').replace(/"/g, '\\\"')) : "";
 	funcStr += "return htmlStr;";
-	funcStr = funcStr.replace(/\s+/, " ");
 
 	try {
 		new Function("args", funcStr);

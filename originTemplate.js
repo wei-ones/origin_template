@@ -14,7 +14,7 @@ var KEYWORDS =
 	+ ',arguments,let,yield'
 	//
 	+',decodeURI,decodeURIComponent,encodeURI,encodeURIComponent,scape,eval'
-	+',getClass,isFinite,isNaN,parseFloat,parseInt,String,unescape'
+	+',getClass,isFinite,isNaN,parseFloat,parseInt,String,Math,unescape'
 	+',Infinity,java,NaN,Packages,undefined';
 
 var commentRe = /\/\*[\w\W]*?\*\/|\/\/[^\n]*\n|\/\/[^\n]*$/g;
@@ -54,7 +54,7 @@ var addStr = "htmlStr += '?';";
 var thisTemplate = {};
 
 originTemplate.compile = function(templateName,templateStr) {
-	templateStr = templateStr.replace(commentRe, '').replace(/\s+/g, " ").replace(/\n+/g, " ");
+	templateStr = templateStr.replace(commentRe, '').replace(/>\s+</g,"><").replace(/\r+/g, " ").replace(/\n+/g, " ");
 
 	var vars = getVariables(templateStr);
 
@@ -86,7 +86,6 @@ originTemplate.compile = function(templateName,templateStr) {
 	tempStr = templateStr.slice(lastPos);
 	funcStr += tempStr ? addStr.replace(/\?/, tempStr.replace(/\\/g, '\\\\').replace(/'/g, '\\\'').replace(/"/g, '\\\"')) : "";
 	funcStr += "return htmlStr;";
-	funcStr = funcStr.replace(/\s+/, " ");
 
 	try {
 		new Function("args", funcStr);
